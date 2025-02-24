@@ -58,6 +58,29 @@ def calcular_score(freq_cardiaca, freq_respiratoria, estado_crianca):
     return score
 
 @login_required
+def perfil_paciente(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+
+    # Ordenar avaliações pela data mais recente e ID mais alto
+    avaliacoes = Avaliacao.objects.filter(paciente=paciente).order_by("-data", "-id")
+
+    # Obtém a última avaliação PEWS do paciente
+    ultima_avaliacao = avaliacoes.first()
+
+    # Preparar dados para o gráfico
+    labels = [avaliacao.data.strftime("%d/%m") for avaliacao in avaliacoes]
+    scores = [avaliacao.score for avaliacao in avaliacoes]
+
+    context = {
+        "paciente": paciente,
+        "avaliacoes": avaliacoes,
+        "ultima_avaliacao": ultima_avaliacao,  # Pegamos corretamente a última avaliação
+        "labels": labels,
+        "scores": scores,
+    }
+    return render(request, "triagem/perfil_paciente.html", context)
+
+@login_required
 def cadastrar_paciente(request):
     if request.method == "POST":
         nome = request.POST.get("nome")
