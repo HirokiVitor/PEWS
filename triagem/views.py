@@ -234,6 +234,14 @@ def historico_pacientes(request):
     pacientes = Paciente.objects.filter(ativo=False)  # Busca pacientes que receberam alta
     return render(request, "triagem/historico_pacientes.html", {"pacientes": pacientes})
 
+@login_required
+@user_passes_test(is_admin)
+def remover_avaliacao(request, avaliacao_id):
+    avaliacao = Avaliacao.objects.get(id=avaliacao_id)
+    avaliacao.delete()
+    messages.success(request, "Avaliação removida com sucesso!")
+    return redirect("home")
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
