@@ -98,6 +98,14 @@ def cadastrar_paciente(request):
 
     return render(request, "triagem/cadastrar_paciente.html")
 
+@login_required
+def home(request):
+    if not request.user.is_authenticated:
+        return redirect('login')  # Redireciona para a página de login se não estiver logado
+
+    pacientes = Paciente.objects.filter(ativo=True)
+    return render(request, "triagem/home.html", {"pacientes": pacientes})  # Caso contrário, exibe a página inicial
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
