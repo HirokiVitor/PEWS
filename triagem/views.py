@@ -57,6 +57,24 @@ def calcular_score(freq_cardiaca, freq_respiratoria, estado_crianca):
 
     return score
 
+@login_required
+def cadastrar_paciente(request):
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        idade = request.POST.get("idade")
+        leito = request.POST.get("leito")
+        dih = request.POST.get("dih")
+        diagnostico = request.POST.get("diagnostico")
+
+        if not nome or not leito:
+            messages.error(request, "Preencha todos os campos obrigatórios.")
+        else:
+            TriagemService.cadastrar_paciente(nome, idade, leito, dih, diagnostico)
+            messages.success(request, "Paciente cadastrado com sucesso!")
+            return redirect("home")  
+
+    return render(request, "triagem/cadastrar_paciente.html")
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
