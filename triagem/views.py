@@ -203,6 +203,31 @@ def segunda_etapa_pews(request, paciente_id):
 def perfil_usuario(request):
     return render(request, "triagem/perfil_usuario.html")
 
+@login_required
+def historico_avaliacoes(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+
+    # Pega os parâmetros de filtro da URL
+    filtro = request.GET.get("filtro", "data")  # Opções: 'data' ou 'score'
+    ordem = request.GET.get("ordem", "desc")  # Opções: 'asc' (crescente) ou 'desc' (decrescente)
+
+    # Define a ordenação correta
+    if filtro == "score":
+        ordenacao = "score" if ordem == "asc" else "-score"
+    else:
+        ordenacao = "data" if ordem == "asc" else "-data"  # Aqui estava errado
+
+    # Busca todas as avaliações do paciente, ordenadas conforme o filtro
+    avaliacoes = Avaliacao.objects.filter(paciente=paciente).order_by(ordenacao)
+
+    context = {
+        "paciente": paciente,
+        "avaliacoes": avaliacoes,
+        "filtro_selecionado": filtro,
+        "ordem_selecionada": ordem,
+    }
+    return render(request, "triagem/historico_avaliacoes.html", context)
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
