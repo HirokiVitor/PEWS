@@ -130,6 +130,75 @@ def cadastrar_funcionario(request):
 
     return render(request, "triagem/cadastrar_funcionario.html")
 
+@login_required
+def adicionar_pews(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+
+    if request.method == "POST":
+        freq_cardiaca = request.POST.get("freq_cardiaca")
+        freq_respiratoria = request.POST.get("freq_respiratoria")
+        estado_crianca = request.POST.get("estado_crianca")
+
+        if freq_cardiaca and freq_respiratoria and estado_crianca:
+            # Salvamos os dados iniciais e seguimos para a próxima etapa
+            request.session["freq_cardiaca"] = freq_cardiaca
+            request.session["freq_respiratoria"] = freq_respiratoria
+            request.session["estado_crianca"] = estado_crianca
+            
+            return redirect("segunda_etapa_pews", paciente_id=paciente.id)  # Redireciona para a próxima etapa
+
+    return render(request, "triagem/adicionar_pews.html", {"paciente": paciente})
+
+@login_required
+def segunda_etapa_pews(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+
+    # Recuperar dados da primeira etapa
+    freq_cardiaca = request.session.get("freq_cardiaca", "")
+    freq_respiratoria = request.session.get("freq_respiratoria", "")
+    estado_crianca = request.session.get("estado_crianca", "")
+
+    if request.method == "POST":
+        av_neuro = request.POST.get("av_neuro")  # Agora sempre pegamos esse valor
+        av_cardio = request.POST.get("av_cardio")
+        av_resp = request.POST.get("av_resp")
+        extras = request.POST.getlist("extras")  # Lista de checkboxes selecionados
+
+        # Verifica se os valores estão preenchidos corretamente
+        if not av_neuro or not av_cardio or not av_resp:
+            messages.error(request, "Todos os campos da avaliação devem ser preenchidos!")
+            return redirect("segunda_etapa_pews", paciente_id=paciente.id)
+
+        # Calculando o score PEWS
+        score = int(av_neuro) + int(av_cardio) + int(av_resp) + (2 * len(extras))
+
+        # Criar a avaliação no banco de dados
+        Avaliacao.objects.create(
+            paciente=paciente,
+            score=score,
+            freq_cardiaca=freq_cardiaca,
+            freq_respiratoria=freq_respiratoria,
+            av_neuro=av_neuro,
+            av_cardio=av_cardio,
+            av_resp=av_resp,
+            extras=", ".join(extras),
+        )
+
+        # Limpar sessão
+        del request.session["freq_cardiaca"]
+        del request.session["freq_respiratoria"]
+        del request.session["estado_crianca"]
+
+        messages.success(request, f"Avaliação PEWS adicionada com sucesso! Score: {score}")
+        return redirect("perfil_paciente", paciente_id=paciente.id)
+
+    return render(request, "triagem/segunda_etapa_pews.html", {
+        "paciente": paciente,
+        "freq_cardiaca": freq_cardiaca,
+        "freq_respiratoria": freq_respiratoria,
+        "estado_crianca": estado_crianca,
+    })
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
