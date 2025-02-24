@@ -228,6 +228,12 @@ def historico_avaliacoes(request, paciente_id):
     }
     return render(request, "triagem/historico_avaliacoes.html", context)
 
+@login_required
+@user_passes_test(is_admin)
+def historico_pacientes(request):
+    pacientes = Paciente.objects.filter(ativo=False)  # Busca pacientes que receberam alta
+    return render(request, "triagem/historico_pacientes.html", {"pacientes": pacientes})
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
