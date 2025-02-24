@@ -113,6 +113,23 @@ def dar_alta_paciente(request, paciente_id):
     messages.success(request, mensagem)
     return redirect("home")
 
+@login_required
+@user_passes_test(is_admin)
+def cadastrar_funcionario(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Usuário já existe.")
+        else:
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            messages.success(request, "Funcionário cadastrado com sucesso!")
+            return redirect("home")
+
+    return render(request, "triagem/cadastrar_funcionario.html")
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
