@@ -106,6 +106,13 @@ def home(request):
     pacientes = Paciente.objects.filter(ativo=True)
     return render(request, "triagem/home.html", {"pacientes": pacientes})  # Caso contrário, exibe a página inicial
 
+@login_required
+@user_passes_test(is_admin)
+def dar_alta_paciente(request, paciente_id):
+    mensagem = TriagemService.dar_alta_paciente(paciente_id)
+    messages.success(request, mensagem)
+    return redirect("home")
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
