@@ -199,6 +199,10 @@ def segunda_etapa_pews(request, paciente_id):
         "estado_crianca": estado_crianca,
     })
 
+@login_required
+def perfil_usuario(request):
+    return render(request, "triagem/perfil_usuario.html")
+
 class PacienteViewSet(viewsets.ModelViewSet):
     """CRUD para Pacientes"""
     queryset = Paciente.objects.all().order_by('-created_at')
