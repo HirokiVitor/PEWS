@@ -125,6 +125,5 @@ class PacienteTestCase(TestCase):
 
 ```python
 python manage.py test
-pytest tests/
 ```
 ✅ Os testes garantem que o sistema está funcionando como esperado!
