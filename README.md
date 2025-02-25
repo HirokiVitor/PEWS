@@ -33,19 +33,26 @@ O **PEWS (Pediatric Early Warning Score)** é um sistema para **triagem pediátr
 
 ## 🔧 Instalação e Execução do Projeto
 ### 1️⃣ Clonar o Repositório
+```python
 git clone https://github.com/HirokiVitor/PEWS.git</br> cd PEWS
+```
 
 ### 2️⃣ Criar um Ambiente Virtual e Instalar Dependências
+```python
 python -m venv venv source venv/bin/activate</br> (Linux/macOS) venv\Scripts\activate</br> (Windows) pip install -r requirements.txt
-
+```
 ### 3️⃣ Aplicar Migrações e Criar Superusuário
-python manage.py migrate</br> python manage.py createsuperuser
+```python
+    python manage.py migrate
+    python manage.py createsuperuser
+```
 
 Após criar o superusuário, ele poderá **cadastrar funcionários e gerenciar avaliações**.
 
 ### 4️⃣ Rodar o Servidor Django
+```python
 python manage.py runserver
-
+```
 Agora, acesse **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** e o sistema estará funcionando!
 
 ---
