@@ -36,7 +36,7 @@ O **PEWS (Pediatric Early Warning Score)** é um sistema para **triagem pediátr
 git clone https://github.com/HirokiVitor/PEWS.git cd PEWS
 
 ### 2️⃣ Criar um Ambiente Virtual e Instalar Dependências
-python -m venv venv source venv/bin/activate # (Linux/macOS) venv\Scripts\activate # (Windows) pip install -r requirements.txt
+python -m venv venv source venv/bin/activate</br> (Linux/macOS) venv\Scripts\activate</br> (Windows) pip install -r requirements.txt
 
 ### 3️⃣ Aplicar Migrações e Criar Superusuário
 python manage.py migrate python manage.py createsuperuser
