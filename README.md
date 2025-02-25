@@ -54,9 +54,9 @@ Após criar o superusuário, ele poderá **cadastrar funcionários e gerenciar a
 
 ### 4️⃣ Rodar o Servidor Django
 ```python
-python manage.py runserver
+python manage.py runserver {porta}
 ```
-Agora, acesse **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** e o sistema estará funcionando!
+Agora, acesse **[http://127.0.0.1:{porta}/](http://127.0.0.1:8000/)** e o sistema estará funcionando!
 
 ---
 
