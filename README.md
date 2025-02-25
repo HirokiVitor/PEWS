@@ -33,7 +33,7 @@ O **PEWS (Pediatric Early Warning Score)** é um sistema para **triagem pediátr
 
 ## 🔧 Instalação e Execução do Projeto
 ### 1️⃣ Clonar o Repositório
-git clone https://github.com/HirokiVitor/PEWS.git cd PEWS
+git clone https://github.com/HirokiVitor/PEWS.git</br> cd PEWS
 
 ### 2️⃣ Criar um Ambiente Virtual e Instalar Dependências
 python -m venv venv source venv/bin/activate</br> (Linux/macOS) venv\Scripts\activate</br> (Windows) pip install -r requirements.txt
