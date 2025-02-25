@@ -18,7 +18,7 @@ O **PEWS (Pediatric Early Warning Score)** é um sistema para **triagem pediátr
 ### 🔹 Backend
 - **Django** - Framework principal  
 - **Django REST Framework** - Criação das APIs  
-- **SQLite** - Banco de dados (pode ser substituído por PostgreSQL)  
+- **SQLite** - Banco de dados
 
 ### 🔹 Frontend
 - **HTML + CSS + JavaScript**  
