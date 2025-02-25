@@ -95,7 +95,7 @@ class TriagemService:
 ✅ Isso melhora a organização do código e facilita a manutenção do sistema!
 
 📌 Testes Implementados
-O sistema contém testes de unidade e testes E2E (end-to-end) para garantir o funcionamento correto.
+O sistema contém testes de unidade para garantir o funcionamento correto.
 
 🧪 Testes de Unidade
 from django.test import TestCase
