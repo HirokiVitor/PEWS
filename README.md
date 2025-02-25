@@ -10,7 +10,7 @@ O **PEWS (Pediatric Early Warning Score)** é um sistema para **triagem pediátr
 ✅ Autenticação de Usuários e Controle de Acesso  
 ✅ Perfis de Funcionários e Administração  
 ✅ **Gestão de Pacientes** (internação e alta médica)  
-✅ Testes de unidade e E2E para validação do sistema  
+✅ Testes de unidade para validação do sistema  
 
 ---
 
