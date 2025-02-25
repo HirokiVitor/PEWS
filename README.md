@@ -27,8 +27,7 @@ O **PEWS (Pediatric Early Warning Score)** é um sistema para **triagem pediátr
 
 ### 🔹 Outros
 - **Git e GitHub** - Controle de versão e colaboração  
-- **Docker (Opcional)** - Containerização do ambiente  
-- **Pytest / Selenium** - Testes de unidade e testes E2E  
+- **Pytest** - Testes de unidade
 
 ---
 
