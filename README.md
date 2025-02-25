@@ -39,7 +39,9 @@ git clone https://github.com/HirokiVitor/PEWS.git</br> cd PEWS
 
 ### 2️⃣ Criar um Ambiente Virtual e Instalar Dependências
 ```python
-python -m venv venv source venv/bin/activate</br> (Linux/macOS) venv\Scripts\activate</br> (Windows) pip install -r requirements.txt
+python -m venv venv source venv/bin/activate<
+(Linux/macOS) venv\Scripts\activate</br>
+(Windows) pip install -r requirements.txt
 ```
 ### 3️⃣ Aplicar Migrações e Criar Superusuário
 ```python
