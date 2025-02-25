@@ -39,7 +39,7 @@ git clone https://github.com/HirokiVitor/PEWS.git cd PEWS
 python -m venv venv source venv/bin/activate</br> (Linux/macOS) venv\Scripts\activate</br> (Windows) pip install -r requirements.txt
 
 ### 3️⃣ Aplicar Migrações e Criar Superusuário
-python manage.py migrate python manage.py createsuperuser
+python manage.py migrate</br> python manage.py createsuperuser
 
 Após criar o superusuário, ele poderá **cadastrar funcionários e gerenciar avaliações**.
 
